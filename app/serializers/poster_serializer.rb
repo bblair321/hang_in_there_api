@@ -1,7 +1,7 @@
 class PosterSerializer
   def self.serialize_collection(posters)
     posters.each_with_object({}) do |poster, hash|
-      hash[poster.id] = {
+      hash["id: #{poster.id}"] = {
         type: "poster",
         attributes: {
           name: poster.name,
