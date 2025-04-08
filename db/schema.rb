@@ -14,17 +14,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_08_201602) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "ids", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.float "price"
-    t.integer "year"
-    t.boolean "vintage"
-    t.string "img_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "posters", force: :cascade do |t|
     t.string "name"
     t.text "description"
