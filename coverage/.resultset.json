@@ -1,0 +1,98 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/bradyblair/Turing/mod2/projects/hang_in_there_api/hang_in_there_api/app/models/poster.rb": {
+        "lines": [
+          1,
+          null,
+          null
+        ]
+      },
+      "/Users/bradyblair/Turing/mod2/projects/hang_in_there_api/hang_in_there_api/app/models/application_record.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/bradyblair/Turing/mod2/projects/hang_in_there_api/hang_in_there_api/app/controllers/api/v1/posters_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          null,
+          null,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null
+        ]
+      },
+      "/Users/bradyblair/Turing/mod2/projects/hang_in_there_api/hang_in_there_api/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/Users/bradyblair/Turing/mod2/projects/hang_in_there_api/hang_in_there_api/app/serializers/poster_serializer.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1744228380
+  }
+}
