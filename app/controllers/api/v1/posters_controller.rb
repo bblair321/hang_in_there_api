@@ -8,4 +8,8 @@ class Api::V1::PostersController < ApplicationController
     poster = Poster.find(params[:id])
     render json: { data: PosterSerializer.format(poster) }
   end
+
+  def destroy
+    poster = Poster.find(params[:id])
+  end
 end
