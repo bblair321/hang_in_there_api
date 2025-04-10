@@ -3,7 +3,7 @@ class Api::V1::PostersController < ApplicationController
     posters = Poster.all
     poster_count = Poster.all.count
     render json: { data: PosterSerializer.format_posters(posters),
-    meta: { count: posters.count }
+    meta: { count: posters.all.count }
     }
   end
 
