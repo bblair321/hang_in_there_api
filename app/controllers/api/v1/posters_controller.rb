@@ -2,7 +2,9 @@ class Api::V1::PostersController < ApplicationController
   def index
     posters = Poster.all
     poster_count = Poster.all.count
-    render json: { data: PosterSerializer.format_posters(posters) }
+    render json: { data: PosterSerializer.format_posters(posters),
+    meta: { count: posters.count }
+    }
   end
 
   def show
@@ -12,7 +14,7 @@ class Api::V1::PostersController < ApplicationController
 
   def create
     poster = Poster.create(poster_params)
-    render json: { data: PosterSerializer.format(poster) }
+    render json: { data: PosterSerializer.format(poster), }
   end
 
   def destroy
