@@ -1,21 +1,29 @@
 class Api::V1::PostersController < ApplicationController
   def index
+    posters = Poster.all
+    
     if params[:min_price].present?
       min_price = params[:min_price].to_f
-      posters = Poster.min_price(min_price)
+      posters = posters.min_price(min_price)
     end
 
     if params[:max_price].present?
       max_price = params[:max_price].to_f
-      posters = Poster.max_price(max_price)
+      posters = posters.max_price(max_price)
     end
     
     if params[:sort] == 'desc'
-      posters = Poster.created_at_desc
+      posters = posters.created_at_desc
     else
-       posters = Poster.order(created_at: :asc)
+       posters = posters.order(created_at: :asc)
     end
-    poster_count = Poster.all.count
+
+    if params[:name].present?
+      posters = posters.name_contains(params[:name])
+    end
+
+    poster_count = posters.count
+    
     render json: { data: PosterSerializer.format_posters(posters),
     meta: { count: poster_count }
     }
