@@ -1,13 +1,12 @@
 class Api::V1::PostersController < ApplicationController
   def index
-    # posters = Poster.all
-    if params[:sort] == 'desc'
+     if params[:sort] == 'desc'
       posters = Poster.created_at_desc
     end
-    # poster_count = Poster.all.count
-    render json: { data: PosterSerializer.format_posters(posters) }
-   
-
+    poster_count = Poster.all.count
+    render json: { data: PosterSerializer.format_posters(posters),
+    meta: { count: poster_count }
+    }
   end
 
   def show
@@ -17,7 +16,7 @@ class Api::V1::PostersController < ApplicationController
 
   def create
     poster = Poster.create(poster_params)
-    render json: { data: PosterSerializer.format(poster) }
+    render json: { data: PosterSerializer.format(poster), }
   end
 
   def destroy
