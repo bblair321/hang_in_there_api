@@ -9,15 +9,16 @@ class Api::V1::PostersController < ApplicationController
       max_price = params[:max_price].to_f
       posters = Poster.max_price(max_price)
     end
-
+    
     if params[:sort] == 'desc'
       posters = Poster.created_at_desc
+    else
+       posters = Poster.order(created_at: :asc)
     end
     poster_count = Poster.all.count
     render json: { data: PosterSerializer.format_posters(posters),
     meta: { count: poster_count }
     }
-
   end
 
   def show
