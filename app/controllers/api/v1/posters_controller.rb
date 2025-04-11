@@ -1,6 +1,8 @@
 class Api::V1::PostersController < ApplicationController
   def index
-    posters = Poster.all
+     if params[:sort] == 'desc'
+      posters = Poster.created_at_desc
+    end
     poster_count = Poster.all.count
     render json: { data: PosterSerializer.format_posters(posters),
     meta: { count: poster_count }
