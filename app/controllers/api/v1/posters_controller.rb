@@ -1,7 +1,11 @@
 class Api::V1::PostersController < ApplicationController
   def index
-    posters = Poster.all
-    poster_count = Poster.all.count
+    # posters = Poster.all
+    if params[:min_price].present?
+      min_price = params[:min_price].to_f
+      posters = Poster.min_price(min_price)
+    end
+    # poster_count = Poster.all.count
     render json: { data: PosterSerializer.format_posters(posters) }
   end
 
