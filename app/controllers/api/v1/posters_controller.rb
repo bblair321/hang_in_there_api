@@ -4,6 +4,12 @@ class Api::V1::PostersController < ApplicationController
       min_price = params[:min_price].to_f
       posters = Poster.min_price(min_price)
     end
+
+    if params[:max_price].present?
+      max_price = params[:max_price].to_f
+      posters = Poster.max_price(max_price)
+    end
+
     if params[:sort] == 'desc'
       posters = Poster.created_at_desc
     end

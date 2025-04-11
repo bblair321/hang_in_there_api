@@ -6,4 +6,8 @@ class Poster < ApplicationRecord
   def self.min_price(min_value)
     where('price > ?', min_value)
   end
+
+  def self.max_price(max_value)
+    where('price < ?', max_value)
+  end
 end
