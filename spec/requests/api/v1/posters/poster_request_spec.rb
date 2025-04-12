@@ -46,6 +46,40 @@ RSpec.describe "Posters endpoints", type: :request do
       end
     end
 
+    it 'returns all posters in ascending order by created_at' do
+      Poster.create(name: "REGRET",
+       description: "Hard work rarely pays off.", 
+       price: 89.00, 
+       year: 2018, 
+       vintage: true, 
+       img_url:  "https://plus.unsplash.com/premium_photo-1661293818249-fddbddf07a5d")
+  
+      Poster.create(name: "FAILURE",
+      description: "Why bother trying? It's probably not worth it.",
+      price: 68.00,
+      year: 2019,
+      vintage: true,
+      img_url: "https://t3.ftcdn.net/jpg/11/70/36/90/240_F_1170369060_uUGb9y0Crkbn6hIHwRtWcCdpMfSDBaqv.jpg")
+  
+      Poster.create(name: "MEDIOCRITY",
+      description: "Dreams are just that—dreams.",
+      price: 127.00,
+      year: 2021,
+      vintage: false,
+      img_url: "https://t3.ftcdn.net/jpg/10/94/43/46/240_F_1094434660_eWqgET75FkLFBMKBz7kd5E3dYIM7tgpO.jpg")
+    
+      get "/api/v1/posters?sort=asc"
+      expect(response).to be_successful
+    
+      parsed = JSON.parse(response.body, symbolize_names: true)
+      data = parsed[:data]
+    
+      expect(data.count).to eq(3)
+    
+      ordered_names = data.map { |poster| poster[:attributes][:name] }
+      expect(ordered_names).to eq(["REGRET", "FAILURE", "MEDIOCRITY"])
+    end
+
     it 'returns all posters in the database in descending order' do
       last_poster = Poster.last
 

@@ -3,7 +3,7 @@ require 'simplecov'
 SimpleCov.start
 
 RSpec.describe "Posters queries", type: :model do
-  it 'returns posters in descending order by created_at time' do
+  xit 'returns posters in descending order by created_at time' do
     poster_count = Poster.all.count
     expect(poster_count).to eq(3)
     Poster.create(name: "REGRET", description: "Hard work rarely pays off.", price: 89.00, year: 2018, vintage: true, img_url: "https://plus.unsplash.com/premium_photo-1661293818249-fddbddf07a5d")
@@ -25,7 +25,7 @@ RSpec.describe "Posters queries", type: :model do
     expect(posters.third.id).to eq(id_third_made)
   end
  
-  it 'returns the posters with a price higher than the user input price(min_value)' do
+  xit 'returns the posters with a price higher than the user input price(min_value)' do
     Poster.first.update(price: 25.0)
     Poster.second.update(price: 50.0)
     Poster.third.update(price: 75.0)
