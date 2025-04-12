@@ -21,11 +21,9 @@ class Api::V1::PostersController < ApplicationController
     if params[:name].present?
       posters = posters.name_contains(params[:name])
     end
-
-    poster_count = posters.count
     
     render json: { data: PosterSerializer.format_posters(posters),
-    meta: { count: poster_count }
+    meta: { count: posters.count }
     }
   end
 
