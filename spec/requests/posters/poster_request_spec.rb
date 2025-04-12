@@ -16,7 +16,7 @@ RSpec.describe "Posters endpoints", type: :request do
     posters = JSON.parse(response.body, symbolize_names: true)
   
     # should have made 2 more
-    expect(posters[:data].count).to eq(5)
+    expect(posters[:data].count).to eq(2)
 
     posters[:data].each do |poster|
       expect(poster).to have_key(:id)
@@ -176,6 +176,75 @@ RSpec.describe "Posters endpoints", type: :request do
     expect(poster_attributes[:vintage]).to eq(created_poster[:vintage])
     expect(poster_attributes[:img_url]).to eq(poster_params[:img_url])
     expect(poster_attributes[:img_url]).to eq(created_poster[:img_url])
+  end
+
+  it "returns only posters with price less than or equal to max_price when param is given" do
+    Poster.create(name: "REGRET",
+     description: "Hard work rarely pays off.", 
+     price: 89.00, 
+     year: 2018, 
+     vintage: true, 
+     img_url:  "https://plus.unsplash.com/premium_photo-1661293818249-fddbddf07a5d")
+
+    Poster.create(name: "FAILURE",
+    description: "Why bother trying? It's probably not worth it.",
+    price: 68.00,
+    year: 2019,
+    vintage: true,
+    img_url: "https://t3.ftcdn.net/jpg/11/70/36/90/240_F_1170369060_uUGb9y0Crkbn6hIHwRtWcCdpMfSDBaqv.jpg")
+
+    Poster.create(name: "MEDIOCRITY",
+    description: "Dreams are just that—dreams.",
+    price: 127.00,
+    year: 2021,
+    vintage: false,
+    img_url: "https://t3.ftcdn.net/jpg/10/94/43/46/240_F_1094434660_eWqgET75FkLFBMKBz7kd5E3dYIM7tgpO.jpg")
+  
+    get "/api/v1/posters", params: { max_price: 88.00 }
+  
+    expect(response).to be_successful
+    posters = JSON.parse(response.body, symbolize_names: true)
+  
+    expect(posters[:data].count).to eq(1)
+  
+    returned_names = posters[:data].map { |poster| poster[:attributes][:name] }
+  
+    expect(returned_names).to include("FAILURE")
+    expect(returned_names).not_to include("REGRET","MEDIOCRITY")
+  end
+
+  it "returns posters with a given search parameter" do
+    Poster.create(name: "REGRET",
+     description: "Hard work rarely pays off.", 
+     price: 89.00, 
+     year: 2018, 
+     vintage: true, 
+     img_url:  "https://plus.unsplash.com/premium_photo-1661293818249-fddbddf07a5d")
+
+    Poster.create(name: "FAILURE",
+    description: "Why bother trying? It's probably not worth it.",
+    price: 68.00,
+    year: 2019,
+    vintage: true,
+    img_url: "https://t3.ftcdn.net/jpg/11/70/36/90/240_F_1170369060_uUGb9y0Crkbn6hIHwRtWcCdpMfSDBaqv.jpg")
+
+    Poster.create(name: "MEDIOCRITY",
+    description: "Dreams are just that—dreams.",
+    price: 127.00,
+    year: 2021,
+    vintage: false,
+    img_url: "https://t3.ftcdn.net/jpg/10/94/43/46/240_F_1094434660_eWqgET75FkLFBMKBz7kd5E3dYIM7tgpO.jpg")
+  
+    get "/api/v1/posters", params: { name: "re" }
+  
+    expect(response).to be_successful
+    posters = JSON.parse(response.body, symbolize_names: true)
+  
+    expect(posters[:data].count).to eq(2)
+    returned_names = posters[:data].map { |poster| poster[:attributes][:name] }
+  
+    expect(returned_names).to include("REGRET", "FAILURE")
+    expect(returned_names).not_to include("MEDIOCRITY")
   end
 end
 
